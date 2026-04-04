@@ -122,6 +122,16 @@ category: "Category"
 
 Do NOT wrap the output in markdown code blocks. Just output the raw markdown with frontmatter.`
 
+async function callModel(client: Anthropic, messages: Anthropic.MessageParam[]): Promise<string> {
+  const message = await client.messages.create({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 2000,
+    messages,
+    system: SYSTEM_PROMPT,
+  })
+  return (message.content[0] as { type: string; text: string }).text.trim()
+}
+
 async function generatePost() {
   const topic = getNextTopic()
   if (!topic) process.exit(1)
@@ -138,33 +148,46 @@ async function generatePost() {
   const uniqueKeywords = [...new Set(allKeywords)]
 
   const client = new Anthropic()
-
   const today = new Date().toISOString().split('T')[0]
 
-  const message = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 2000,
-    messages: [
-      {
-        role: 'user',
-        content: `Write a blog post about: "${topic.title}"
+  const userMessage = `Write a blog post about: "${topic.title}"
 
 Target keywords: ${uniqueKeywords.join(', ')}
 Category: ${topic.category}
 Today's date: ${today}
 
-Remember to include the frontmatter with today's date, 2-3 internal links to /treatments /about or /corporate, and a booking link. Mention both Rotherham and Sheffield/South Yorkshire naturally.`,
-      },
-    ],
-    system: SYSTEM_PROMPT,
-  })
+Remember to include the frontmatter with today's date, 2-3 internal links to /treatments /about or /corporate, and a booking link. Mention both Rotherham and Sheffield/South Yorkshire naturally.`
 
-  const postContent = (message.content[0] as { type: string; text: string }).text.trim()
+  const messages: Anthropic.MessageParam[] = [
+    { role: 'user', content: userMessage },
+  ]
 
-  // Validate
-  const { valid, issues } = validatePost(postContent, uniqueKeywords)
+  let postContent = await callModel(client, messages)
+
+  // Validate — retry once with explicit feedback if it fails
+  let { valid, issues } = validatePost(postContent, uniqueKeywords)
+
   if (!valid) {
-    console.error('Post validation failed:')
+    console.warn('First attempt failed validation. Retrying with explicit feedback...')
+    console.warn('Issues:', issues.join(', '))
+
+    const retryMessages: Anthropic.MessageParam[] = [
+      { role: 'user', content: userMessage },
+      { role: 'assistant', content: postContent },
+      {
+        role: 'user',
+        content: `This post failed validation for the following reasons:\n${issues.map(i => `- ${i}`).join('\n')}\n\nPlease rewrite the full post from scratch, making sure to fix all of these issues. Pay close attention to the MANDATORY REQUIREMENTS in the original instructions.`,
+      },
+    ]
+
+    postContent = await callModel(client, retryMessages)
+    const retryValidation = validatePost(postContent, uniqueKeywords)
+    valid = retryValidation.valid
+    issues = retryValidation.issues
+  }
+
+  if (!valid) {
+    console.error('Post validation failed after retry:')
     issues.forEach(i => console.error(`  - ${i}`))
     console.error('Generated content (first 500 chars):')
     console.error(postContent.substring(0, 500))
