@@ -1,0 +1,27 @@
+---
+title: "Trigger Points Explained: Why That Knot Won't Go Away"
+date: "2026-05-01"
+description: "Discover why muscle knots persist and how trigger point therapy can finally release them. Learn what actually causes them and how to fix them."
+keywords: ["trigger points massage", "muscle knots", "sports massage Rotherham", "sports massage Sheffield"]
+category: "Technique"
+---
+
+You've probably got one right now. That hard little knot in your shoulder, your calf, somewhere in your upper back. You've tried stretching it. Maybe you've rolled it on a foam roller until it hurts. It feels better for a day or two, then it comes right back. This is where most people go wrong. They think a knot is just tension that needs loosening, but it's actually more specific than that. What you're dealing with is likely a trigger point, and understanding what's actually happening will explain why your usual approach isn't working.
+
+A trigger point is a hyperirritable spot within a muscle. Think of it as a small area of muscle that's stuck in a partial contraction, even when you're at rest. The fibres in that spot have essentially forgotten how to relax. I see this constantly in clinic, particularly in people who sit at desks all day in Sheffield, or those who train hard at the local gyms around Rotherham without addressing their muscle maintenance. The thing is, a trigger point isn't just sore to touch. It actually refers pain to other parts of your body, which is why that knot in your shoulder might feel like it's causing pain down your arm.
+
+What actually causes a trigger point to form in the first place? Usually it comes down to a combination of things. Repetitive strain is the big one, whether that's typing all day, carrying your gym bag on the same shoulder, or running the same routes through South Yorkshire without varying your training. Poor posture plays a huge role too. Muscle overload, where you've done too much too soon, can trigger them as well. Sometimes it's a direct injury or a muscle that's been tight for so long it's lost its ability to fully relax. Once they're there, they're stubborn because the muscle fibres have developed what's essentially a learned pattern of tightness.
+
+Here's the thing that most people don't realise. You can't stretch a trigger point away. When you stretch a muscle that contains a trigger point, you're not addressing the actual problem. The tight fibres in that spot don't respond to stretching the same way normal muscle does. I've had clients tell me they've been stretching the same area for months with no improvement, and it's because stretching alone isn't designed to reset that hyperirritable spot.
+
+This is where trigger point massage comes in. When I work on a trigger point, I'm applying sustained pressure to that specific area to encourage the muscle fibres to release their contraction. It's not aggressive deep tissue work that just feels good for a bit. It's specific, targeted pressure held for long enough that the nervous system actually registers the release. The pressure interrupts the pain signal and helps reset the neuromuscular feedback loop. You'll often feel a distinct release or softening under my hands when it happens. Sometimes clients describe it as the knot unwinding. That's basically what's occurring.
+
+The reason trigger points come back if you only get a one-off treatment is because the underlying cause is still there. If you're sitting at a desk all day with poor posture, your trigger point will reform unless you address the postural habit. If you're training hard without adequate recovery and self-care, they'll come back. This is why I often work with clients on a regular basis, especially runners and people doing CrossFit or weight training. Consistent [sports massage](/treatments) helps prevent trigger points from reforming in the first place.
+
+What I tell most of my clients is that a single session is a reset. It sorts the problem out temporarily, but what keeps it sorted is addressing how the muscle got that way. Sometimes that's changing your desk setup, sometimes it's adjusting your training load, sometimes it's learning proper movement patterns. Often it's a combination.
+
+There's also something called self-myofascial release that can help between sessions. A massage ball or tennis ball applied to the spot with sustained pressure can work similarly to what I do in the clinic, though it's not quite the same because you can't apply as much specific pressure or feel the release the way a therapist can. But it's useful for maintenance. Stretching becomes more effective after you've released a trigger point, because the muscle is no longer stuck in that partial contraction.
+
+If you're in Rotherham or Sheffield and you've got a knot that won't budge, it's probably worth getting it assessed. What feels like a simple knot might actually be one or several trigger points, and a therapist trained in [trigger point work](/about) can identify exactly what you're dealing with. The good news is that trigger points respond really well to targeted treatment. They're not permanent, and they don't require months of therapy. But they do need the right approach.
+
+If you want to get this sorted, you can book in with me here: [Book a session](https://book.squareup.com/appointments/rz59xehpau07vg/location/L7D39225FBMR9)
