@@ -65,9 +65,9 @@ function validatePost(content: string, keywords: string[]): { valid: boolean; is
   if (!content.includes('keywords:')) issues.push('Missing keywords in frontmatter')
   if (!content.includes('category:')) issues.push('Missing category in frontmatter')
 
-  // Check internal links
-  const hasInternalLinks = content.includes('](/treatments') || content.includes('](/about') || content.includes('](/corporate') || content.includes('](/blog')
-  if (!hasInternalLinks) issues.push('Missing internal links')
+  // Check internal links — accept relative paths or full hhmassagetherapy.co.uk URLs
+  const internalPathRegex = /\]\((?:https?:\/\/(?:www\.)?hhmassagetherapy\.co\.uk)?\/(?:treatments|about|corporate|blog)/
+  if (!internalPathRegex.test(content)) issues.push('Missing internal links')
 
   // Check booking link
   if (!content.includes('book.squareup.com')) issues.push('Missing booking link')
@@ -109,7 +109,7 @@ End with a brief, natural call to action pointing to your booking page. Keep it 
 
 MANDATORY REQUIREMENTS:
 Word count: 700-1500 words (body text, excluding frontmatter). Aim for the middle of that range unless the topic genuinely needs more depth.
-Include 2-3 internal links using markdown: [link text](/treatments), [link text](/about), or [link text](/corporate)
+Include AT LEAST TWO internal links using markdown with RELATIVE paths only (never full URLs). The post will be rejected if it does not contain at least one of: [some text](/treatments), [some text](/about), [some text](/corporate), or [some text](/blog). Do not write [text](https://hhmassagetherapy.co.uk/treatments), only [text](/treatments).
 
 FRONTMATTER FORMAT (must be at the very start):
 ---
@@ -125,7 +125,7 @@ Do NOT wrap the output in markdown code blocks. Just output the raw markdown wit
 async function callModel(client: Anthropic, messages: Anthropic.MessageParam[]): Promise<string> {
   const message = await client.messages.create({
     model: 'claude-haiku-4-5-20251001',
-    max_tokens: 2000,
+    max_tokens: 4000,
     messages,
     system: SYSTEM_PROMPT,
   })
@@ -171,12 +171,22 @@ Remember to include the frontmatter with today's date, 2-3 internal links to /tr
     console.warn('First attempt failed validation. Retrying with explicit feedback...')
     console.warn('Issues:', issues.join(', '))
 
+    const fixGuidance = issues.map(issue => {
+      if (issue === 'Missing internal links') {
+        return `- Missing internal links. You MUST include at least two markdown links to internal pages using the exact relative-path format. Example: "see my [sports massage treatments](/treatments) page" or "more about [my approach](/about)" or "for [workplace massage](/corporate) options". Do NOT use full URLs like https://hhmassagetherapy.co.uk/treatments — only the relative path.`
+      }
+      if (issue === 'Missing booking link') {
+        return `- Missing booking link. End with a CTA containing the literal URL https://book.squareup.com/appointments/rz59xehpau07vg/location/L7D39225FBMR9 inside a markdown link.`
+      }
+      return `- ${issue}`
+    }).join('\n')
+
     const retryMessages: Anthropic.MessageParam[] = [
       { role: 'user', content: userMessage },
       { role: 'assistant', content: postContent },
       {
         role: 'user',
-        content: `This post failed validation for the following reasons:\n${issues.map(i => `- ${i}`).join('\n')}\n\nPlease rewrite the full post from scratch, making sure to fix all of these issues. Pay close attention to the MANDATORY REQUIREMENTS in the original instructions.`,
+        content: `This post failed validation:\n${fixGuidance}\n\nRewrite the full post from scratch fixing every issue. Keep the rest of the rules (no em-dashes, no bullet lists, 700-1500 words, frontmatter at the top).`,
       },
     ]
 
